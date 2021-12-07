@@ -112,3 +112,48 @@ detA
 
 
 printf("\n\n2.1 UL-РАЗЛОЖЕНИЕ МАТРИЦЫ A\n\n\n")
+
+
+L = zeros(length(A), length(A));
+U = zeros(length(A), length(A));
+for i = 1:1:length(A)
+  L(i, i) = 1;
+endfor
+
+for i = 1:1:length(A)
+  for j = 1:1:length(A)
+    if i <= j
+      U(i, j) = A(i, j) - sum(L(i, 1 : i - 1) * U(1: i - 1, j));
+    endif
+    if i>j
+      L(i,j) = (A(i, j) - sum(L(i, 1:j - 1) * U(1:j - 1, j))) / U(j, j);
+    endif
+  endfor
+endfor
+
+L
+U
+
+
+printf("\n2.2 ОПРЕДЕЛИТЕЛЬ МАТРИЦЫ A С ПОМОЩЬЮ UL-РАЗЛОЖЕНИЯ\n\n\n")
+
+
+detA = prod(diag(L)) * prod(diag(U))
+
+
+printf("\n\n2.3 РЕШИТЬ СЛАУ С ПОМОЩЬЮ UL-РАЗЛОЖЕНИЯ\n\n")
+
+% AB = cat(2, A, B);
+LB = cat(2, L, B);
+
+y = zeros(4,1)
+y(1) = LB(1,5)/LB(1,1)
+y(2) = (LB(2,5)-LB(2,1)*y(1))/LB(2,2)
+y(3) = (LB(3,5)-LB(3,1)*y(1)-LB(3,2)*y(2))/LB(3,3)
+y(4) = (LB(4,5)-LB(4,1)*y(1)-LB(4,2)*y(2)-LB(4,3)*y(3))/LB(4,4)
+
+X = zeros(4,1)
+X(4) = AB(4,5)/AB(4,4)
+X(3) = (AB(3,5)-AB(3,4)*X(4))/AB(3,3)
+X(2) = (AB(2,5)-AB(2,3)*X(3)-AB(2,4)*X(4))/AB(2,2)
+X(1) = (AB(1,5)-AB(1,2)*X(2)-AB(1,3)*X(3)-AB(1,4)*X(4))/AB(1,1)
