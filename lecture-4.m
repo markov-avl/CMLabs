@@ -21,5 +21,3 @@ for k = 1:1:4
     X0 = X;
     E0 = E;
 endfor
-
-X
