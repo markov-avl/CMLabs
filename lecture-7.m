@@ -33,7 +33,7 @@ clear all
 h = @(x, y) cos(y) + 1;
 d = @(x, y) log(x + 1) + 2;
 
-h = @
+%h = @
 
 f = @(x, y) x - cos(y) - 1;
 g = @(x, y) y - log(x + 1) - 2;
@@ -109,5 +109,5 @@ e = 0.000001;
 
 [k x2 y2]
 
-#f(x2, y2)
-#g(x2, y2)
+% f(x2, y2)
+% g(x2, y2)
