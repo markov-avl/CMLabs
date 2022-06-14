@@ -39,5 +39,5 @@ plot(x, y, 's', 'MarkerEdgeColor', 'k', 'MarkerSize', 20,
      x3, y3, 'g-.', 'LineWidth', 3,
      x4, y4, 'k:', 'LineWidth', 4,
      x5, y5, 'r- -', 'LineWidth', 2)
-h = legend('y(x) = sin(x)', 'Прямой метод действия', 'approx(1)', 'approx(2)', 'approx(3)');
+h = legend('y(x) = sin(x)', 'Прямой метод действия', 'approx(1)', 'approx(2)', 'approx(3)', 'location', 'northeastoutside');
 set(h, "fontsize", 12);
