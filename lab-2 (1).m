@@ -1,3 +1,5 @@
+% Марков Андрей Владимирович - Б9119-02.03.03техпро (3-й курс)
+
 clear all
 
 % исходные матрицы
@@ -17,10 +19,10 @@ for i = 1:1:length(A)
   for j = (i + 1):1:length(A)
     for k = 1:1:length(AB)
       AB0(j, k) = AB(i, k) / AB(i, i) * AB(j, i) - AB(j, k);
-    endfor
+    end
     AB = AB0;
-  endfor
-endfor
+  end
+end
 AB
 
 printf("Убираем все коэффициенты, стоящие не на главной диагонали:\n")
@@ -28,19 +30,19 @@ for j = length(A):(-1):2
   for i = (j - 1):(-1):1
     for k = 1:1:length(AB)
       AB0(i, k) = AB(j, k) / AB(j, j) * AB(i, j) - AB(i, k);
-    endfor
+    end
     AB = AB0;
-  endfor
-endfor
+  end
+end
 AB
 
 printf("Получаем только единицы на главной диагонали:\n")
 for j = 1:1:length(A)
   for k = 1:1:length(AB)
     AB0(j, k) = AB(j, k) / AB(j, j);
-  endfor
+  end
   AB = AB0;
-endfor
+end
 AB
 
 printf("Так как мы получили в левой матрице только единицы на главной диагонали, то правая матрица есть искомая матрица X:\n")
@@ -58,26 +60,26 @@ for i = 1:1:length(A)
   for j = (i + 1):1:length(A)
     for k = 1:1:length(AA)
       AA0(j, k) = AA(i, k) / AA(i, i) * AA(j, i) - AA(j, k);
-    endfor
+    end
     AA = AA0;
-  endfor
-endfor
+  end
+end
 
 for j = length(A):(-1):2
   for i = (j - 1):(-1):1
     for k = 1:1:length(AA)
       AA0(i, k) = AA(j, k) / AA(j, j) * AA(i, j) - AA(i, k);
-    endfor
+    end
     AA = AA0;
-  endfor
-endfor
+  end
+end
 
 for j = 1:1:length(A)
   for k = 1:1:length(AA)
     AA0(j, k) = AA(j, k) / AA(j, j);
-  endfor
+  end
   AA = AA0;
-endfor
+end
 
 printf("Наша расширенная матрица после проделывания всех шагов, что и в методе Гаусса:\n")
 AA
@@ -97,17 +99,17 @@ for i = 1:1:length(A)
   for j = (i + 1):1:length(A)
     for k = 1:1:length(A)
       A1(j, k) = A0(i, k) / A0(i, i) * A0(j, i) - A0(j, k);
-    endfor
+    end
     A0 = A1;
-  endfor
-endfor
+  end
+end
 A0
 
 printf("Теперь просто перемножаем все значения на главной диагонали и получаем определитель матрицы A:\n")
 detA = A0(1, 1);
 for i = 2:1:length(A)
   detA *= A0(i, i);
-endfor
+end
 detA
 
 
@@ -118,18 +120,18 @@ L = zeros(length(A), length(A));
 U = zeros(length(A), length(A));
 for i = 1:1:length(A)
   L(i, i) = 1;
-endfor
+end
 
 for i = 1:1:length(A)
   for j = 1:1:length(A)
     if i <= j
       U(i, j) = A(i, j) - sum(L(i, 1 : i - 1) * U(1: i - 1, j));
-    endif
+    end
     if i>j
       L(i,j) = (A(i, j) - sum(L(i, 1:j - 1) * U(1:j - 1, j))) / U(j, j);
-    endif
-  endfor
-endfor
+    end
+  end
+end
 
 L
 U
@@ -143,17 +145,16 @@ detA = prod(diag(L)) * prod(diag(U))
 
 printf("\n\n2.3 РЕШИТЬ СЛАУ С ПОМОЩЬЮ UL-РАЗЛОЖЕНИЯ\n\n")
 
-% AB = cat(2, A, B);
 LB = cat(2, L, B);
 
-y = zeros(4,1)
-y(1) = LB(1,5)/LB(1,1)
-y(2) = (LB(2,5)-LB(2,1)*y(1))/LB(2,2)
-y(3) = (LB(3,5)-LB(3,1)*y(1)-LB(3,2)*y(2))/LB(3,3)
-y(4) = (LB(4,5)-LB(4,1)*y(1)-LB(4,2)*y(2)-LB(4,3)*y(3))/LB(4,4)
+Y = zeros(4,1);
+Y(1) = LB(1,5) / LB(1,1);
+Y(2) = (LB(2,5) - LB(2,1) * Y(1)) / LB(2,2);
+Y(3) = (LB(3,5) - LB(3,1) * Y(1) - LB(3,2) * Y(2)) /LB(3,3);
+Y(4) = (LB(4,5) - LB(4,1) * Y(1) - LB(4,2) * Y(2) -LB(4,3) * Y(3)) / LB(4,4)
 
-X = zeros(4,1)
-X(4) = AB(4,5)/AB(4,4)
-X(3) = (AB(3,5)-AB(3,4)*X(4))/AB(3,3)
-X(2) = (AB(2,5)-AB(2,3)*X(3)-AB(2,4)*X(4))/AB(2,2)
-X(1) = (AB(1,5)-AB(1,2)*X(2)-AB(1,3)*X(3)-AB(1,4)*X(4))/AB(1,1)
+X = zeros(4,1);
+X(4) = AB(4,5) / AB(4,4);
+X(3) = (AB(3,5) - AB(3,4) * X(4)) / AB(3,3);
+X(2) = (AB(2,5) - AB(2,3) * X(3) - AB(2,4) * X(4)) / AB(2,2);
+X(1) = (AB(1,5) - AB(1,2) * X(2) - AB(1,3) * X(3) - AB(1,4) * X(4)) / AB(1,1)
