@@ -1,14 +1,13 @@
-% diff №1: y' = 3 + 2 * x ^ 2, y(0) = 2
-
+% y' = 2y - 3x^2
 clear all;
-Dif1 = @(X)(3 + 2 * X ^ 2);
-Dif1init = 2;
-dF1dx = @(X)(4*X);
-dF1dy = @(X, Y)(0);
+Dif1 = @(X, Y)(2*Y - 3*X.^2);
+Dif1init = 0;
+dF1dx = @(X)(6*X);
+dF1dy = @(X, Y)(2);
 dx = 0.1;
-C = 2;
+C = -3/4;
 points = [0:dx:10];
-Dif1Solution = @(X)(2 * X.^ 3 / 3 + 3 * X + 2);
+Dif1Solution = @(X)(-(3*e.^(2*X))/4 + (3*X.^2)/2 + 3*X/2 + 3/4);
 
 function res = Yavniy(Func, points, Y)
   Size = size(points)(2);

@@ -2,11 +2,12 @@ clear all;
 
 % ВХОДНЫЕ ДАННЫЕ
 
-x = [-1, -0.6, -0.2, 0.2, 0.6, 1]';
-n = length(x);
-y = [];
+dx = 0.4;
+x1 = (-1:dx:1)';
+n = length(x1);
+y1 = [];
 for i = 1:1:n
-    y(i) = acos(x(i));
+    y1(i) = acos(x1(i));
 end
 
 % МЕТОД ЛАГРАНЖА
@@ -26,23 +27,22 @@ function l = lagrang(x, X, Y)
     end
 end
 
-x2 = [x(1):0.01:x(n)]';
+x2 = [x1(1):0.01:x1(n)]';
 y2 = [];
-
 for i = 1:1:length(x2)
-    y2(i) = lagrang(x2(i), x, y);
+    y2(i) = lagrang(x2(i), x1, y1);
 end
 
 
-[x3, y3] = least_square_method(1, x', y);
-[x4, y4] = least_square_method(2, x', y);
-[x5, y5] = least_square_method(3, x', y);
+[x3, y3] = least_square_method(1, x1', y1);
+[x4, y4] = least_square_method(2, x1', y1);
+[x5, y5] = least_square_method(3, x1', y1);
 
-plot(x,  y,  's',    'MarkerEdgeColor', 'k', 'MarkerSize', 20,
-     x2, y2, 'b-',   'LineWidth', 2,
-     x3, y3, 'g-.',  'LineWidth', 3,
-     x4, y4, 'k:',   'LineWidth', 4,
-     x5, y5, 'r- -', 'LineWidth', 2);
+plot(x1, y1, 's',   'MarkerEdgeColor', 'k', 'MarkerSize', 20,
+     x2, y2, 'b-',  'LineWidth', 2,
+     x3, y3, 'g-.', 'LineWidth', 3,
+     x4, y4, 'k:',  'LineWidth', 4,
+     x5, y5, 'r-',  'LineWidth', 2);
 h = legend('y(x) = arccos(x)', 'Метод Лагранжа', 'approx(1)', 'approx(2)',
            'approx(3)', 'location', 'northeastoutside');
 set(h, "fontsize", 12);
