@@ -1,13 +1,13 @@
-% y' = 2y - 3x^2
+% y' = 2y - 3x^2, y(0) = 0
 clear all;
 Dif1 = @(X, Y)(2*Y - 3*X.^2);
 Dif1init = 0;
-dF1dx = @(X)(6*X);
-dF1dy = @(X, Y)(2);
-dx = 0.1;
+dF1dx = @(X)(-6*X);
+dF1dy = @()(2);
+dx = 0.01;
 C = -3/4;
 points = [0:dx:10];
-Dif1Solution = @(X)(-(3*e.^(2*X))/4 + (3*X.^2)/2 + 3*X/2 + 3/4);
+Dif1Solution = @(X)(-(3*e.^(2*X))./4 + (3*X.^2)./2 + 3*X./2 + 3./4);
 
 function res = Yavniy(Func, points, Y)
   Size = size(points)(2);

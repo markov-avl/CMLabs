@@ -1,15 +1,14 @@
-% diff №31: y' + x*y = 0.5*(x-1)*e^x*y^2, y(0) = 2
-
+% y' = 2*x^3*y^3 - 2xy, y(0) = 1
 clear all;
 format long;
-Dif1 = @(X, Y)(- X*Y + 0.5*(X-1)*e^X*Y^2);
-Dif1Init = 2;
-dF1dx = @(X,Y)(Y^2*(X/2-1/2)*e^X+Y^2*e^X/2+Y);
-dF1dy = @(X, Y)(X+2*Y*(X/2-1/2)*e^X);
-dx = 0.1;
-C = 0;
-points = [0:dx:2];
-Dif1Solution = @(X)(2 ./ (C*e.^(X.^2/2) + e.^X));
+Dif1 = @(X, Y)(2*X.^3*Y.^3 - 2*X*Y);
+Dif1Init = 1;
+dF1dx = @(X, Y)(6*X.^2*Y.^3 - 2*Y);
+dF1dy = @(X, Y)(6*X.^3*Y.^2 - 2*X);
+dx = 0.01;
+C = 1/2;
+points = [0:dx:1];
+Dif1Solution = @(X)(sqrt(1./((e.^(2*X.^2))./2 + X.^2 + 1./2)));
 
 function res = Yavniy(Func, points, Y)
   Size = size(points)(2);
